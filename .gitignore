@@ -1,0 +1,10 @@
+# Node.js (for Frontend)
+frontend/node_modules
+frontend/.next
+frontend/npm-debug.log*
+
+# Python (for Backend)
+backend/__pycache__
+backend/*.pyc
+backend/.venv
+backend/venv
