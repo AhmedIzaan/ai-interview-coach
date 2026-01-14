@@ -15,7 +15,7 @@ export default function LandingPage() {
             <div className="bg-blue-600 p-2 rounded-lg">
               <Bot className="w-6 h-6 text-white" />
             </div>
-            <span>Intervue.</span>
+            <span>intervue<span className="text-blue-500">.ai</span></span>
           </div>
 
           {/* Dummy Navigation Links */}
@@ -28,7 +28,7 @@ export default function LandingPage() {
 
           {/* CTA Button */}
           <div className="flex items-center gap-4">
-            <Link href="/practise">
+            <Link href="/setup">
               <button className="bg-white text-black px-5 py-2.5 rounded-full font-semibold hover:bg-gray-200 transition-all text-sm">
                 Get Started
               </button>
@@ -79,7 +79,7 @@ export default function LandingPage() {
           transition={{ delay: 0.3 }}
           className="flex flex-col md:flex-row items-center justify-center gap-4"
         >
-          <Link href="/practise">
+          <Link href="/setup">
             <button className="flex items-center gap-2 bg-blue-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-500 transition-all hover:scale-105 shadow-lg shadow-blue-500/25">
               <Mic className="w-5 h-5" />
               Start Interview

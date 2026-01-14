@@ -2,9 +2,22 @@
 frontend/node_modules
 frontend/.next
 frontend/npm-debug.log*
+.next
 
 # Python (for Backend)
 backend/__pycache__
 backend/*.pyc
 backend/.venv
 backend/venv
+backend/env
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environment variables (contains API keys)
+backend/.env
+.env
+
+# Database
+backend/interviews.db

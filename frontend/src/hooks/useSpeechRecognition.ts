@@ -11,6 +11,7 @@ export default function useSpeechRecognition() {
   const [text, setText] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [recognition, setRecognition] = useState<any>(null);
+  const [finalTranscript, setFinalTranscript] = useState("");
 
   useEffect(() => {
     // Check browser compatibility
@@ -28,14 +29,37 @@ export default function useSpeechRecognition() {
     recognitionInstance.lang = "en-US";
 
     recognitionInstance.onresult = (event: any) => {
-      let finalTranscript = "";
+      let interimTranscript = "";
+      let newFinalTranscript = "";
+
+      // Only process results from resultIndex onwards (new results only)
       for (let i = event.resultIndex; i < event.results.length; i++) {
-        finalTranscript += event.results[i][0].transcript;
+        const transcript = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+          newFinalTranscript += transcript + " ";
+        } else {
+          interimTranscript += transcript;
+        }
       }
-      setText(finalTranscript);
+
+      // Update final transcript state if we have new final results
+      if (newFinalTranscript) {
+        setFinalTranscript((prev) => prev + newFinalTranscript);
+      }
+
+      // Combine finalized text with interim results for display
+      setFinalTranscript((currentFinal) => {
+        setText(currentFinal + interimTranscript);
+        return currentFinal;
+      });
     };
 
     recognitionInstance.onend = () => {
+      setIsListening(false);
+    };
+
+    recognitionInstance.onerror = (event: any) => {
+      console.error("Speech recognition error:", event.error);
       setIsListening(false);
     };
 
@@ -45,6 +69,7 @@ export default function useSpeechRecognition() {
   const startListening = useCallback(() => {
     if (recognition) {
       setText(""); // Clear previous text
+      setFinalTranscript(""); // Clear final transcript
       recognition.start();
       setIsListening(true);
     }
